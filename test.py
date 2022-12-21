@@ -4,7 +4,8 @@ from tenpy.networks.mps import MPS
 from tenpy.models.hubbard import FermiHubbardModel
 from tenpy.algorithms.dmrg import TwoSiteDMRGEngine
 
-L = 4
+L = 2
+
 U = 1.
 
 sim_params = {
