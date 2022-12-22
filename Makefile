@@ -1,4 +1,3 @@
-.PHONY: run run_NB test clean
 
 test:
 	@python code/test.py
@@ -6,8 +5,11 @@ test:
 run:
 	@python code/run.py
 
+sequence_NB:
+	@python code/sequence_NB.py
+
 run_NB:
-	@python code/run_NB.py
+	@nohup bash settings/script_NB.sh > results/nohup.out
 
 clean:
 	@rm -rf results/*
