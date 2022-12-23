@@ -2,3 +2,5 @@
 *.h5
 *.txt
 *.log
+*.out
+*.csv
