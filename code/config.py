@@ -76,7 +76,6 @@ def create_filename(parameters):
     for ii in range(0, len(interactions)):
         if interactions[ii][1] != 0.:
             filename += interactions[ii][0]+'{0:.1f}'.format(interactions[ii][1])
-    filename += '.h5'
 
     return filename
 

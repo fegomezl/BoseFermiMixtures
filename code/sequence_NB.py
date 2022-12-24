@@ -29,7 +29,7 @@ data = ["{:<8} {:<15} {:<15}".format('RHO_B','E','MU')]
 #Realizar primera medición
 N_B = 0
 sim_params['initial_state_params']['N_B'] = N_B
-sim_params['output_filename'] = 'results/'+foldername+'/'+config.create_filename(parameters)
+sim_params['output_filename'] = 'results/'+foldername+'/'+config.create_filename(parameters)+'.h5'
 results = tenpy.run_simulation(**sim_params)
 E_old = results['energy']
 data.append("{:<8.5f} {:<15.10f}".format(0,E_old))
@@ -38,7 +38,7 @@ data.append("{:<8.5f} {:<15.10f}".format(0,E_old))
 for N_B in range(1, parameters['L']+1):
     parameters['N_B'] = N_B
     sim_params['initial_state_params']['N_B'] = N_B
-    sim_params['output_filename'] = 'results/'+foldername+'/'+config.create_filename(parameters)
+    sim_params['output_filename'] = 'results/'+foldername+'/'+config.create_filename(parameters)+'.h5'
     results = tenpy.run_simulation(**sim_params)
     E_new = results['energy']
     MU = E_new - E_old 

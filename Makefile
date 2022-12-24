@@ -3,7 +3,7 @@ test:
 	@python code/test.py
 
 run:
-	@python code/run.py
+	@nohup python code/run.py & > results/nohup.out
 
 sequence_NB:
 	@python code/sequence_NB.py

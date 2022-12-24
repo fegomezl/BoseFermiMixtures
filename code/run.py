@@ -9,7 +9,7 @@ import config
 with open('settings/run.yml', 'r') as f:
     parameters = yaml.safe_load(f)
 sim_params = config.read_settings(parameters)
-sim_params['output_filename'] = 'results/'+config.create_filename(parameters)
+sim_params['output_filename'] = 'results/'+config.create_filename(parameters)+'.h5'
 
 # Importar modelo (ladder or chain)
 exec('import '+parameters['Type']+' as BFModel')

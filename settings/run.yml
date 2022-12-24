@@ -1,8 +1,8 @@
-Type: ladder
+Type: chain
 N_B_max: 1
 L: 8
 
-N_B: 4
+N_B: 6
 N_FU: 4
 N_FD: 4
 
@@ -21,13 +21,13 @@ V_BF: 0.
 
 min_sweeps: 1
 max_sweeps: 1
-max_E_err: 1.e-8
-max_S_err: 1.e-5
+max_E_err: 1.e-5
+max_S_err: 1.e-3
 chi_max: 500
 
-overwrite_output: True
-save_psi: True
-save_stats: True
-save_resume_data: True
-measure_initial: True
-use_default_measurements: True
+overwrite_output: False
+save_psi: False
+save_stats: False
+save_resume_data: False
+measure_initial: False
+use_default_measurements: False
