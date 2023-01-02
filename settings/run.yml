@@ -6,10 +6,6 @@ N_B: 6
 N_FU: 4
 N_FD: 4
 
-RHO_B: 0.
-RHO_FU: 0.5
-RHO_FD: 0.5
-
 t_B: 1.
 t_F: 1.
 U_BB: 0.

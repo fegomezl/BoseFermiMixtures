@@ -1,4 +1,4 @@
-.PHONY: test run
+.PHONY: test run run_NB clean
 
 test:
 	@nohup python -m tenpy settings/test.yml > results/nohup.out &
@@ -13,4 +13,4 @@ run_NB:
 	@nohup bash scripts/script_NB.sh > results/nohup.out
 
 clean:
-	@rm -rf results/*.out results/*.h5 results/*.log
+	@rm -rf results/*.out results/*.h5 results/*.log results/BF*

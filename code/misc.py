@@ -75,14 +75,6 @@ def create_filename(parameters):
 
     return filename
 
-def use_densities(parameters):
-
-    parameters['N_B'] = int(parameters['L']*parameters['RHO_B'] + 0.5)
-    parameters['N_FU'] = int(parameters['L']*parameters['RHO_FU'] + 0.5)
-    parameters['N_FD'] = int(parameters['L']*parameters['RHO_FD'] + 0.5)
-
-    return parameters
-
 def create_foldername(parameters):
 
     # Crear nombre de archivo
