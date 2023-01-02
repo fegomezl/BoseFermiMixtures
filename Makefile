@@ -1,8 +1,7 @@
-
-.PHONY: test
+.PHONY: test run
 
 test:
-	@nohup python code/test.py > results/nohup.out &
+	@nohup python -m tenpy settings/test.yml > results/nohup.out &
 
 run:
 	@nohup python code/run.py > results/nohup.out &

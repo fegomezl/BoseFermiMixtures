@@ -1,7 +1,3 @@
-import sys
-import numpy as np
-import yaml
-from pprint import pprint
 
 def read_settings(parameters):
 
