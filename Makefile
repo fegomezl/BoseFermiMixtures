@@ -7,7 +7,10 @@ run:
 	@nohup python code/run.py > results/nohup.out &
 
 run_NB:
-	@nohup bash scripts/script_NB.sh > results/nohup.out
+	@nohup bash scripts/run_NB.sh > results/nohup.out
+
+run_L_NB:
+	@nohup bash scripts/run_L_NB.sh > results/nohup.out
 
 clean:
 	@rm -rf results/*.out results/*.h5 results/*.log results/BF*
