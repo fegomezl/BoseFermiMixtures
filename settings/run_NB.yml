@@ -21,7 +21,8 @@ min_sweeps: 1
 max_sweeps: 1
 max_E_err: 1.0e-05
 max_S_err: 0.001
-chi_max: 500
+chi_list:
+  0: 500
 overwrite_output: false
 save_psi: false
 save_stats: false

@@ -36,7 +36,8 @@ def read_settings(parameters):
             'max_sweeps': parameters['max_sweeps'],
             'max_E_err': parameters['max_E_err'],
             'max_S_err': parameters['max_S_err'],
-            'trunc_params': {'chi_max': parameters['chi_max'],},
+            'chi_list': parameters['chi_list'],
+            #'trunc_params': {'chi_max': parameters['chi_max'],},
             'mixer': True,
         },
 
