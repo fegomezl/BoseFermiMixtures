@@ -19,3 +19,6 @@ exec('import '+parameters['Type']+' as BFModel')
 
 # Ejectar simulación
 results = tenpy.run_simulation(**sim_params)
+
+# Notify telegram
+misc.send_to_telegram('Finished: \n'+misc.create_filename(parameters))

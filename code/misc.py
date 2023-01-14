@@ -1,3 +1,16 @@
+import requests
+
+def send_to_telegram(message):
+
+    apiToken = '5876988113:AAG-m6Jv3rv4L1EW7xmke33UqajOdk5c7YI'
+    chatID = '5415339789'
+    apiURL = f'https://api.telegram.org/bot{apiToken}/sendMessage'
+
+    try:
+        response = requests.post(apiURL, json={'chat_id': chatID, 'text': message})
+        print(response.text)
+    except Exception as e:
+        print(e)
 
 def read_settings(parameters):
 

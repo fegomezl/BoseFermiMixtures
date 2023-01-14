@@ -22,3 +22,6 @@ if not os.path.exists('results'):
     os.mkdir('results')
 if not os.path.exists('results/'+foldername):
     os.mkdir('results/'+foldername)
+
+# Notify telegram
+misc.send_to_telegram('Started '+str(parameters['N_B_F']-parameters['N_B_I']+1)+' jobs:\n'+misc.create_foldername(parameters)+'\nNB: ('+str(parameters['N_B_I'])+','+str(parameters['N_B_F'])+')')
