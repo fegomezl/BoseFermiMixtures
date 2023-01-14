@@ -1,30 +1,35 @@
 Type: chain
 N_B_max: 1
-L_I: 48
-DL: 12
-L_F: 48
-RES_B: 1
+L_I: 51
+DL: 8
+L_F: 91
+RES_B: 2
 RHO_B: 0.75
 RHO_FU: 0.25
 RHO_FD: 0.25
-N_B_I: 34
-N_B_F: 37
-N_FU: 12
-N_FD: 12
+N_B_I: 66
+N_B_F: 70
+N_FU: 23
+N_FD: 23
 t_B: 1.0
 t_F: 1.0
 U_BB: 0.0
 U_FF: 4.0
 U_BF: 6.0
 V_BB: 0.0
-V_FF: 0.0
+V_FF: 10.0
 V_BF: 0.0
 min_sweeps: 1
-max_sweeps: 1
+max_sweeps: 100
 max_E_err: 1.0e-05
 max_S_err: 0.001
 chi_list:
-  0: 500
+  0: 700
+  10: 800
+  20: 900
+  30: 1000
+  40: 1100
+  50: 1200
 overwrite_output: false
 save_psi: false
 save_stats: false
