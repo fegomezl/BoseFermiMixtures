@@ -1,11 +1,9 @@
 Type: chain
 N_B_max: 1
 L: 8
-
 N_B: 6
 N_FU: 4
 N_FD: 4
-
 t_B: 1.
 t_F: 1.
 U_BB: 0.
@@ -14,13 +12,13 @@ U_BF: 6.
 V_BB: 0.
 V_FF: 4.
 V_BF: 0.
-
 min_sweeps: 1
 max_sweeps: 2
 max_E_err: 1.e-5
 max_S_err: 1.e-3
-chi_list:
-  0: 500
+chi_init: 500
+chi_step: 1
+chi_increase: 100
 overwrite_output: False
 save_psi: False
 save_stats: False

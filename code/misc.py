@@ -14,6 +14,11 @@ def send_to_telegram(message):
 
 def read_settings(parameters):
 
+    # Configurar lista de dimensiones chi
+    chi_list = {0: parameters['chi_init']}
+    for ii in range(1, parameters['max_sweeps']//parameters['chi_step']+1):
+        chi_list[ii*parameters['chi_step']] = parameters['chi_init'] + ii*parameters['chi_increase']
+
     # Configurar el formato correcto
     sim_params = {
         'simulation_class': 'GroundStateSearch',
@@ -49,8 +54,7 @@ def read_settings(parameters):
             'max_sweeps': parameters['max_sweeps'],
             'max_E_err': parameters['max_E_err'],
             'max_S_err': parameters['max_S_err'],
-            'chi_list': parameters['chi_list'],
-            #'trunc_params': {'chi_max': parameters['chi_max'],},
+            'chi_list': chi_list,
             'mixer': True,
         },
 
