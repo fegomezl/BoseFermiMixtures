@@ -13,21 +13,21 @@ t_B: 1.0
 t_F: 1.0
 U_BB: 0.0
 U_FF: 4.0
-U_BF: 6.0
+U_BF: 10.0
 V_BB: 0.0
-V_FF: 5.0
+V_FF: 0.0
 V_BF: 0.0
 min_sweeps: 1
 max_sweeps: 1000
 max_E_err: 1.0e-05
 max_S_err: 0.001
 chi_list:
-  0: 700
-  10: 800
-  20: 900
-  30: 1000
-  40: 1100
-  50: 1200
+  0: 500
+  10: 600
+  20: 700
+  30: 800
+  40: 900
+  50: 1000
 overwrite_output: false
 save_psi: false
 save_stats: false
