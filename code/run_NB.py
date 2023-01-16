@@ -36,4 +36,4 @@ if len(A) == A[1]-A[0]+3:
     progress += '\n Finished: \n'+misc.create_foldername(parameters)
 
 # Enviar notificación
-misc.send_to_telegram('Finished: \n'+misc.create_filename(parameters)+'\n'+progress)
+misc.send_to_telegram('Finished: \n'+misc.create_filename(parameters)+'\n'+str(len(A)-2)+'/'+str(A[1]-A[0]+1)+'\n'+progress)
