@@ -58,12 +58,12 @@ def read_settings(parameters):
             'mixer': True,
         },
 
-        'overwrite_output': parameters['overwrite_output'],
         'save_psi': parameters['save_psi'],
-        'save_stats': parameters['save_stats'],
-        'save_resume_data': parameters['save_resume_data'],
-        'measure_initial': parameters['measure_initial'],
-        'use_default_measurements': parameters['use_default_measurements'],
+        'save_resume_data': False,
+        'save_stats': True,
+        'measure_initial': False,
+        'use_default_measurements': False,
+        'overwrite_output': True,
 
         'log_params': {
             'to_stdout': 'INFO',
