@@ -1,26 +1,50 @@
 import requests
+import yaml
 
-def send_to_telegram(message):
+# Create name for given parameters and mode:
+#   None: Filename for simulation
+#   NB: Foldername for NB iteration
+#   L: Foldername for L iteration of NB iterations
+def create_name(parameters, mode=None):
 
-    apiToken = '5876988113:AAG-m6Jv3rv4L1EW7xmke33UqajOdk5c7YI'
-    chatID = '5415339789'
-    apiURL = f'https://api.telegram.org/bot{apiToken}/sendMessage'
+    # Create start of foldername
+    if mode == 'NB':
+        name = 'BFModel_L{}_NB_RHOFU{:.2f}_RHOFD{:.2f}'.format(parameters['L'],
+                                                               parameters['RHO_FU'],
+                                                               parameters['RHO_FD'])
+    elif mode == 'L':
+        name = 'BFModel_L_RHOB{:.2f}_RHOFU{:.2f}_RHOFD{:.2f}'.format(parameters['RHO_B'],
+                                                                     parameters['RHO_FD'],
+                                                                     parameters['RHO_FD'])
+    else:
+        name = 'BFModel_L{}_NB{}_NFU{}_NFD{}'.format(parameters['L'],
+                                                     parameters['N_B'],
+                                                     parameters['N_FU'],
+                                                     parameters['N_FD'])
+    
+    # Add interactions
+    interactions =[['_UBB',parameters['U_BB']],
+                   ['_UFF',parameters['U_FF']],
+                   ['_UBF',parameters['U_BF']],
+                   ['_VBB',parameters['V_BB']],
+                   ['_VFF',parameters['V_FF']],
+                   ['_VBF',parameters['V_BF']]]
+    for ii in range(0, len(interactions)):
+        if interactions[ii][1] != 0.:
+            name += interactions[ii][0]+'{0:.1f}'.format(interactions[ii][1])
 
-    try:
-        response = requests.post(apiURL, json={'chat_id': chatID, 'text': message})
-        print(response.text)
-    except Exception as e:
-        print(e)
+    return name
 
-def read_settings(parameters):
+# Set parameters to the correct format
+def read_settings(parameters, foldername, index=0):
 
-    # Configurar lista de dimensiones chi
+    # Configure bond dimension list
     chi_list = {0: parameters['chi_init']}
     for ii in range(1, parameters['max_sweeps']//parameters['chi_step']+1):
         chi_list[ii*parameters['chi_step']] = parameters['chi_init'] + ii*parameters['chi_increase']
 
-    # Configurar el formato correcto
-    sim_params = {
+    # Configure correct format
+    sim_parameters = {
         'simulation_class': 'GroundStateSearch',
 
         'model_class': 'BoseFermiHubbard',
@@ -71,43 +95,30 @@ def read_settings(parameters):
         },
     }
 
-    return sim_params
+    # Add filename, foldername and index
+    sim_parameters['filename'] = create_name(parameters)
+    sim_parameters['foldername'] = foldername
+    sim_parameters['index'] = index
 
-def create_filename(parameters):
+    return sim_parameters
 
-    # Crear nombre de archivo
-    filename = 'BF{}_L{}_NB{}_NFU{}_NFD{}'.format(parameters['Type'],
-                                                  parameters['L'],
-                                                  parameters['N_B'],
-                                                  parameters['N_FU'],
-                                                  parameters['N_FD'])
-    interactions =[['_UBB',parameters['U_BB']],
-                   ['_UFF',parameters['U_FF']],
-                   ['_UBF',parameters['U_BF']],
-                   ['_VBB',parameters['V_BB']],
-                   ['_VFF',parameters['V_FF']],
-                   ['_VBF',parameters['V_BF']]]
-    for ii in range(0, len(interactions)):
-        if interactions[ii][1] != 0.:
-            filename += interactions[ii][0]+'{0:.1f}'.format(interactions[ii][1])
+# Send message with telegram bot
+def send_to_telegram(message, config_file):
 
-    return filename
+    # Get token and chat ID from config file
+    try:
+        with open(config_file, 'r') as file:
+            config = yaml.safe_load(file)
+    except:
+        print('No telegram config file.')
+        return None
 
-def create_foldername(parameters):
+    apiToken = config['token']
+    chatID = config['ID']
+    apiURL = f'https://api.telegram.org/bot{apiToken}/sendMessage'
 
-    # Crear nombre de archivo
-    foldername = 'BF{}_L{}_NB_RHOFU{:.2f}_RHOFD{:.2f}'.format(parameters['Type'],
-                                                                        parameters['L'],
-                                                                        parameters['RHO_FU'],
-                                                                        parameters['RHO_FD'])
-    interactions =[['_UBB',parameters['U_BB']],
-                   ['_UFF',parameters['U_FF']],
-                   ['_UBF',parameters['U_BF']],
-                   ['_VBB',parameters['V_BB']],
-                   ['_VFF',parameters['V_FF']],
-                   ['_VBF',parameters['V_BF']]]
-    for ii in range(0, len(interactions)):
-        if interactions[ii][1] != 0.:
-            foldername += interactions[ii][0]+'{0:.1f}'.format(interactions[ii][1])
-
-    return foldername
+    # Send message to chat
+    try:
+        response = requests.post(apiURL, json={'chat_id': chatID, 'text': message})
+    except Exception as e:
+        print(e)

@@ -1,35 +1,31 @@
-Type: chain
-N_B_max: 1
-L_I: 39
-DL: 12
-NL: 6
-RES_B: 1
-EXACT_B: 1
-RHO_B: 0.5
-RHO_FU: 0.3333
-RHO_FD: 0.3333
-N_B_I: 48
-N_B_F: 50
-N_FU: 33
-N_FD: 33
-t_B: 1.0
-t_F: 1.0
-U_BB: 0.0
-U_FF: 4.0
-U_BF: 6.0
-V_BB: 0.0
-V_FF: 2.0
-V_BF: 0.0
-min_sweeps: 1
-max_sweeps: 1000
-max_E_err: 1.0e-05
-max_S_err: 0.001
-chi_init: 500
-chi_step: 10
-chi_increase: 100
-overwrite_output: false
-save_psi: false
-save_stats: false
-save_resume_data: false
-measure_initial: false
-use_default_measurements: false
+# Lattice and inital state parameters
+N_B_max: 1      # Maximum number of bosons per site
+L_I: 10         # Initial lenght of chain
+DL: 2           # Size of lenght jump
+NL: 3           # Number of leght jumps
+RES_B: 1        # Number of points measured near objective
+EXACT_B: True   # Exact value for boson density(RHO_B)
+RHO_B: 0.5      # Target boson density
+RHO_FU: 0.5     # Up fermion density
+RHO_FD: 0.5     # Down fermion density
+
+# Interaction parametes
+t_B: 1          # Boson hopping
+t_F: 1.         # Fermion hopping
+U_BB: 0.        # Local boson-boson
+U_FF: 4.        # Local fermion-fermion
+U_BF: 6.        # Local boson-fermion
+V_BB: 0.        # Next-neighbor boson-boson
+V_FF: 0.        # Next neighbor fermion-fermion
+V_BF: 0.        # Next-neighbor boson-fermion
+
+# Simulation parameters
+cores: 96               # Number of cores to use
+min_sweeps: 1           # Minimum sweep number
+max_sweeps: 1000        # Maximum sweep number
+max_E_err: 1.e-5        # Maximum energy error (-Delta_E/max(|E|, 1) < max_E_err)
+max_S_err: 1.e-3        # Maximum entropy error (|Delta_S| < max_S_err) 
+chi_init: 500           # Bond dimention initial value
+chi_step: 10            # Steps for bond increasing
+chi_increase: 100       # Magnitude of bond increasing
+save_psi: False         # Measure expectation values

@@ -1,39 +1,42 @@
-import sys
+import os
+import multiprocessing
 import yaml
-import tenpy
 
+import BFModel
 import misc
+import postproccesing
 
-# Parametros de la simulación
+# Read parameters for set of simulations
 with open('settings/run_NB.yml', 'r') as f:
     parameters = yaml.safe_load(f)
-parameters['N_B'] = int(sys.argv[1])
-sim_params = misc.read_settings(parameters)
-sim_params['log_params']['filename'] = 'results/'+misc.create_foldername(parameters)+'/'+misc.create_filename(parameters)+'.log'
 
-# Importar modelo (ladder or chain)
-exec('import '+parameters['Type']+' as BFModel')
+# Create folder for results
+foldername = misc.create_name(parameters, 'NB')
+if not os.path.exists('results'):
+    os.mkdir('results')
+if not os.path.exists('results/'+foldername):
+    os.mkdir('results/'+foldername)
 
-# Ejectar simulación
-results = tenpy.run_simulation(**sim_params)
+# Calculate bounds for boson number
+NB_I = int(parameters['L']*parameters['RHO_B_I'] + 0.5)
+NB_F = int(parameters['L']*parameters['RHO_B_F'] + 0.5)
+parameters['N_FU']  = int(parameters['L']*parameters['RHO_FU']  + 0.5)
+parameters['N_FD']  = int(parameters['L']*parameters['RHO_FD']  + 0.5)
 
-# Actualizar archivo de progreso
-file = open('results/'+misc.create_foldername(parameters)+'/progress.txt', 'a')
-file.write('\n'+str(parameters['N_B']))
-file.close()
+# Save set of parameters for simulations
+sim_parameters_list = []
+for nb in range(NB_I, NB_F+1):
+    parameters['N_B'] = nb
+    sim_parameters_list.append(misc.read_settings(parameters, 'results/'+foldername, nb))
 
-# Leer progreso actual
-file = open('results/'+misc.create_foldername(parameters)+'/progress.txt', 'r')
-A = []
-for line in file.readlines():
-    A.append(int(line))
-file.close()
+# Run all simulations in parallel while notifying telegram for each finished simulation
+progress = '▢'*(NB_F-NB_I+1)
+misc.send_to_telegram('Started: '+str(NB_F-NB_I+1)+' jobs:\n'+foldername+'\nNB= '+str(NB_I)+':'+str(NB_F)+'\n'+progress, 'settings/telegram.yml')
+pool = multiprocessing.Pool(processes=parameters['cores'])
+for result in pool.imap_unordered(BFModel.run, sim_parameters_list):
+    progress = progress[0:result-NB_I]+'▣'+progress[result-NB_I+1:]
+    misc.send_to_telegram('Finished NB='+str(result)+' from\n'+foldername+'\n'+progress, 'settings/telegram.yml')
 
-progress = '▢'*(A[1]-A[0]+1)
-for ii in range(2, len(A)):
-    progress = progress[0:A[ii]-A[0]]+'▣'+progress[A[ii]-A[0]+1:]
-if len(A) == A[1]-A[0]+3:
-    progress += '\n Finished: \n'+misc.create_foldername(parameters)
-
-# Enviar notificación
-misc.send_to_telegram('Finished: \n'+misc.create_filename(parameters)+'\n'+str(len(A)-2)+'/'+str(A[1]-A[0]+1)+'\n'+progress)
+# Get global results from all of the simulations
+postproccesing.postproccesing_NB('results/'+foldername)
+misc.send_to_telegram('Finished:\n'+foldername, 'settings/telegram.yml')

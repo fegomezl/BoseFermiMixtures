@@ -1,22 +1,26 @@
-Type: chain
-N_B_max: 1
-L: 35
-N_B: 1
-N_FU: 1
-N_FD: 1
-t_B: 1
-t_F: 1.
-U_BB: 0.
-U_FF: 4.
-U_BF: 6.
-V_BB: 0.
-V_FF: 0.
-V_BF: 0.
-min_sweeps: 1
-max_sweeps: 1000
-max_E_err: 1.e-5
-max_S_err: 1.e-3
-chi_init: 500
-chi_step: 10
-chi_increase: 100
-save_psi: True
+# Lattice and inital state parameters
+N_B_max: 1      # Maximum number of bosons per site
+L: 10           # Lenght of chain
+N_B: 0          # Number of bosons
+N_FU: 1         # Number of up fermions
+N_FD: 1         # Number of down fermions
+
+# Interaction parametes
+t_B: 1          # Boson hopping
+t_F: 1.         # Fermion hopping
+U_BB: 0.        # Local boson-boson
+U_FF: 4.        # Local fermion-fermion
+U_BF: 6.        # Local boson-fermion
+V_BB: 0.        # Next-neighbor boson-boson
+V_FF: 0.        # Next neighbor fermion-fermion
+V_BF: 0.        # Next-neighbor boson-fermion
+
+# Simulation parameters
+min_sweeps: 1           # Minimum sweep number
+max_sweeps: 1000        # Maximum sweep number
+max_E_err: 1.e-5        # Maximum energy error (-Delta_E/max(|E|, 1) < max_E_err)
+max_S_err: 1.e-3        # Maximum entropy error (|Delta_S| < max_S_err) 
+chi_init: 500           # Bond dimention initial value
+chi_step: 10            # Steps for bond increasing
+chi_increase: 100       # Magnitud of bond increasing
+save_psi: True          # Measure expectation values
